@@ -1,0 +1,720 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Profil</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=DM+Sans:wght@300;400;500&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      /* ─── RESET ─────────────────────────────────────── */
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      :root {
+        --teal: #0e7c7b;
+        --teal-light: #e8f4f4;
+        --teal-dark: #095e5d;
+        --bg: #f5f5f5;
+        --white: #ffffff;
+        --text: #333;
+        --muted: #777;
+        --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.07);
+        --shadow-md: 0 8px 28px rgba(14, 124, 123, 0.15);
+        --shadow-lg: 0 20px 50px rgba(14, 124, 123, 0.18);
+      }
+
+      body {
+        background: var(--bg);
+        color: var(--text);
+        font-family: "DM Sans", sans-serif;
+        min-height: 200vh; /* biar bisa scroll untuk demo sticky/fixed */
+      }
+
+      /* ─── NAVBAR (position: sticky) ─────────────────── */
+      .navbar {
+        position: sticky; /* ← sticky */
+        top: 0;
+        z-index: 200; /* ← z-index tinggi agar selalu di atas */
+        background: var(--white);
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+      }
+
+      .navbar .container {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 15px 0;
+      }
+
+      .container {
+        width: 90%;
+        max-width: 1200px;
+        margin: auto;
+      }
+
+      .logo {
+        font-family: "Playfair Display", serif;
+        font-size: 22px;
+        font-weight: 700;
+        color: var(--teal);
+        letter-spacing: 1px;
+      }
+
+      .menu {
+        display: flex;
+        gap: 30px;
+      }
+
+      .menu a {
+        text-decoration: none;
+        color: var(--text);
+        font-size: 14px;
+        font-weight: 400;
+        transition: color 0.2s;
+      }
+
+      .menu a:hover {
+        color: var(--teal);
+      }
+
+      .nav-icons {
+        display: flex;
+        gap: 15px;
+        align-items: center;
+      }
+
+      .nav-icons input {
+        padding: 6px 10px;
+        border-radius: 4px;
+        border: 1px solid #ccc;
+        font-family: "DM Sans", sans-serif;
+        font-size: 13px;
+      }
+
+      /* ─── PAGE HEADER ─────────────────────────────────── */
+      .page-header {
+        background: linear-gradient(
+          135deg,
+          var(--teal) 0%,
+          var(--teal-dark) 100%
+        );
+        padding: 50px 0 60px;
+        text-align: center;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .page-header::before {
+        content: "";
+        position: absolute;
+        width: 300px;
+        height: 300px;
+        border-radius: 50%;
+        border: 60px solid rgba(255, 255, 255, 0.05);
+        top: -80px;
+        right: -60px;
+      }
+
+      .page-header::after {
+        content: "";
+        position: absolute;
+        width: 200px;
+        height: 200px;
+        border-radius: 50%;
+        border: 40px solid rgba(255, 255, 255, 0.05);
+        bottom: -60px;
+        left: -40px;
+      }
+
+      .page-header h1 {
+        font-family: "Playfair Display", serif;
+        font-size: 32px;
+        color: var(--white);
+        margin-bottom: 8px;
+      }
+
+      .page-header p {
+        color: rgba(255, 255, 255, 0.75);
+        font-size: 14px;
+        font-weight: 300;
+      }
+
+      /* ─── MAIN LAYOUT ─────────────────────────────────── */
+      .main {
+        padding: 60px 0 100px;
+      }
+
+      .profile-layout {
+        display: grid;
+        grid-template-columns: 320px 1fr;
+        gap: 40px;
+        align-items: start;
+      }
+
+      /* ─── PROFILE CARD (position: relative) ─────────── */
+      .profile-card {
+        position: relative; /* ← parent container */
+        width: 280px;
+        height: 350px;
+        background: var(--white);
+        border-radius: 20px;
+        box-shadow: var(--shadow-lg);
+        overflow: visible;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 30px 20px 24px;
+        transition:
+          transform 0.3s ease,
+          box-shadow 0.3s ease;
+      }
+
+      .profile-card:hover {
+        transform: translateY(-6px);
+        box-shadow: 0 28px 60px rgba(14, 124, 123, 0.22);
+      }
+
+      /* Badge Status (position: absolute) */
+      .badge-status {
+        position: absolute; /* ← absolute di dalam relative */
+        top: 16px;
+        right: 16px;
+        z-index: 10; /* ← z-index agar badge selalu di depan */
+        background: var(--white);
+        border: 1.5px solid #d4f0ef;
+        color: var(--teal-dark);
+        font-size: 11px;
+        font-weight: 500;
+        padding: 4px 10px;
+        border-radius: 20px;
+        box-shadow: 0 2px 8px rgba(14, 124, 123, 0.12);
+        white-space: nowrap;
+      }
+
+      /* Decoration ring di belakang foto */
+      .avatar-wrapper {
+        position: relative; /* ← relative untuk pseudo-element cincin */
+        margin-bottom: 16px;
+      }
+
+      .avatar-ring {
+        position: absolute; /* ← lingkaran dekoratif */
+        top: -6px;
+        left: -6px;
+        width: calc(100% + 12px);
+        height: calc(100% + 12px);
+        border-radius: 50%;
+        border: 3px dashed rgba(14, 124, 123, 0.3);
+        animation: spin 12s linear infinite;
+        z-index: 0;
+      }
+
+      @keyframes spin {
+        to {
+          transform: rotate(360deg);
+        }
+      }
+
+      .avatar {
+        position: relative;
+        z-index: 1;
+        width: 90px;
+        height: 90px;
+        border-radius: 50%;
+        background: linear-gradient(135deg, var(--teal), #14b8a6);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 36px;
+        box-shadow: 0 6px 20px rgba(14, 124, 123, 0.3);
+      }
+
+      .profile-name {
+        font-family: "Playfair Display", serif;
+        font-size: 18px;
+        font-weight: 600;
+        color: var(--text);
+        margin-bottom: 4px;
+        text-align: center;
+      }
+
+      .profile-role {
+        font-size: 12px;
+        color: var(--teal);
+        font-weight: 500;
+        letter-spacing: 0.5px;
+        text-transform: uppercase;
+        margin-bottom: 16px;
+        text-align: center;
+      }
+
+      .profile-stats {
+        display: flex;
+        gap: 20px;
+        border-top: 1px solid #f0f0f0;
+        padding-top: 16px;
+        width: 100%;
+        justify-content: center;
+      }
+
+      .stat {
+        text-align: center;
+      }
+
+      .stat-number {
+        font-family: "Playfair Display", serif;
+        font-size: 18px;
+        font-weight: 700;
+        color: var(--teal);
+        display: block;
+      }
+
+      .stat-label {
+        font-size: 10px;
+        color: var(--muted);
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+      }
+
+      /* Bookmark decoration di pojok kiri atas kartu */
+      .card-bookmark {
+        position: absolute; /* ← absolute */
+        top: -2px;
+        left: 28px;
+        z-index: 5;
+        width: 20px;
+        height: 34px;
+        background: var(--teal);
+        clip-path: polygon(0 0, 100% 0, 100% 80%, 50% 100%, 0 80%);
+      }
+
+      /* ─── DETAIL PANEL ─────────────────────────────────── */
+      .detail-panel {
+        display: flex;
+        flex-direction: column;
+        gap: 24px;
+      }
+
+      .panel-section {
+        background: var(--white);
+        border-radius: 16px;
+        padding: 28px 30px;
+        box-shadow: var(--shadow-sm);
+      }
+
+      .panel-section h3 {
+        font-family: "Playfair Display", serif;
+        font-size: 16px;
+        color: var(--text);
+        margin-bottom: 16px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+
+      .panel-section h3::after {
+        content: "";
+        flex: 1;
+        height: 1px;
+        background: #f0f0f0;
+      }
+
+      .info-row {
+        display: flex;
+        justify-content: space-between;
+        padding: 10px 0;
+        border-bottom: 1px solid #f8f8f8;
+        font-size: 14px;
+      }
+
+      .info-row:last-child {
+        border-bottom: none;
+      }
+
+      .info-label {
+        color: var(--muted);
+        font-weight: 400;
+      }
+
+      .info-value {
+        color: var(--text);
+        font-weight: 500;
+        text-align: right;
+      }
+
+      .book-list {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+      }
+
+      .book-item {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        padding: 12px 14px;
+        background: var(--teal-light);
+        border-radius: 10px;
+        transition: background 0.2s;
+      }
+
+      .book-item:hover {
+        background: #d0eeee;
+      }
+
+      .book-icon {
+        font-size: 22px;
+        flex-shrink: 0;
+      }
+
+      .book-info {
+        flex: 1;
+      }
+
+      .book-title {
+        font-size: 13px;
+        font-weight: 500;
+        color: var(--text);
+      }
+
+      .book-author {
+        font-size: 11px;
+        color: var(--muted);
+        margin-top: 2px;
+      }
+
+      .book-rating {
+        font-size: 12px;
+        color: #f59e0b;
+      }
+
+      /* CSS Position Label */
+      .css-label {
+        font-size: 10px;
+        font-weight: 500;
+        color: var(--teal);
+        background: var(--teal-light);
+        padding: 2px 8px;
+        border-radius: 4px;
+        font-family: "Courier New", monospace;
+      }
+
+      .css-note {
+        margin-top: 6px;
+        font-size: 11px;
+        color: var(--muted);
+        font-style: italic;
+        padding: 8px 12px;
+        background: #fffbeb;
+        border-left: 3px solid #f59e0b;
+        border-radius: 4px;
+      }
+
+      /* ─── BACK TO TOP (position: fixed) ─────────────── */
+      .back-to-top {
+        position: fixed; /* ← fixed */
+        bottom: 30px;
+        right: 30px;
+        z-index: 999; /* ← z-index paling tinggi */
+        width: 48px;
+        height: 48px;
+        background: var(--teal);
+        color: white;
+        border: none;
+        border-radius: 50%;
+        font-size: 20px;
+        cursor: pointer;
+        box-shadow: 0 6px 20px rgba(14, 124, 123, 0.4);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition:
+          transform 0.2s,
+          background 0.2s;
+        opacity: 0;
+        pointer-events: none;
+        transition:
+          opacity 0.3s,
+          transform 0.2s;
+      }
+
+      .back-to-top.visible {
+        opacity: 1;
+        pointer-events: all;
+      }
+
+      .back-to-top:hover {
+        background: var(--teal-dark);
+        transform: translateY(-3px);
+      }
+
+      /* ─── FOOTER ─────────────────────────────────────── */
+      .footer {
+        text-align: center;
+        padding: 20px;
+        background: #eee;
+        font-size: 13px;
+        color: var(--muted);
+      }
+
+      /* ─── Z-INDEX DEMO CALLOUT ───────────────────────── */
+      .zindex-callout {
+        background: linear-gradient(135deg, #fffbeb, #fef3c7);
+        border: 1px solid #fbbf24;
+        border-radius: 12px;
+        padding: 16px 20px;
+        font-size: 13px;
+        line-height: 1.7;
+        color: #92400e;
+      }
+
+      .zindex-callout strong {
+        display: block;
+        font-size: 14px;
+        margin-bottom: 6px;
+        color: #78350f;
+      }
+
+      code {
+        background: rgba(0, 0, 0, 0.06);
+        padding: 1px 5px;
+        border-radius: 3px;
+        font-family: "Courier New", monospace;
+        font-size: 12px;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- ★ NAVBAR — position: sticky; z-index: 200 -->
+    <header class="navbar">
+      <div class="container">
+        <div class="logo">PUSTAKATA</div>
+        <nav class="menu">
+          <a href="#">Beranda</a>
+          <a href="#">Buku</a>
+          <a href="#">Komunitas</a>
+          <a href="#">Katalog</a>
+        </nav>
+        <div class="nav-icons">
+          <input type="text" placeholder="Cari buku..." />
+          <span>🔍</span>
+          <span>🛒</span>
+          <span>👤</span>
+        </div>
+      </div>
+    </header>
+
+    <!-- PAGE HEADER -->
+    <div class="page-header">
+      <h1>Profil Pembaca</h1>
+      <p>Kelola akun dan aktivitas membacamu di Pustakata</p>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <main class="main">
+      <div class="container">
+        <div class="profile-layout">
+          <!-- LEFT: PROFILE CARD -->
+          <div>
+            <!-- ★ PROFILE CARD — position: relative (parent) -->
+            <div class="profile-card">
+              <!-- Dekorasi bookmark atas kiri — position: absolute -->
+              <div class="card-bookmark"></div>
+
+              <!-- ★ BADGE STATUS — position: absolute; z-index: 10 -->
+              <div class="badge-status">Online 🟢</div>
+
+              <!-- Avatar dengan lingkaran animasi -->
+              <div class="avatar-wrapper">
+                <div class="avatar-ring"></div>
+                <div class="avatar">📚</div>
+              </div>
+
+              <div class="profile-name">Arif Pratama</div>
+              <div class="profile-role">Book Enthusiast</div>
+
+              <div class="profile-stats">
+                <div class="stat">
+                  <span class="stat-number">47</span>
+                  <span class="stat-label">Dibaca</span>
+                </div>
+                <div class="stat">
+                  <span class="stat-number">12</span>
+                  <span class="stat-label">Ulasan</span>
+                </div>
+                <div class="stat">
+                  <span class="stat-number">8</span>
+                  <span class="stat-label">Diskusi</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- CSS Position Notes untuk elemen di atas -->
+            <div
+              style="
+                margin-top: 20px;
+                display: flex;
+                flex-direction: column;
+                gap: 8px;
+              "
+            >
+              <p
+                style="
+                  font-size: 12px;
+                  color: var(--muted);
+                  display: flex;
+                  align-items: center;
+                  gap: 6px;
+                "
+              >
+                <span class="css-label">position: relative</span> kartu utama
+                (parent)
+              </p>
+              <p
+                style="
+                  font-size: 12px;
+                  color: var(--muted);
+                  display: flex;
+                  align-items: center;
+                  gap: 6px;
+                "
+              >
+                <span class="css-label">position: absolute</span> badge "Online
+                🟢"
+              </p>
+              <p
+                style="
+                  font-size: 12px;
+                  color: var(--muted);
+                  display: flex;
+                  align-items: center;
+                  gap: 6px;
+                "
+              >
+                <span class="css-label">position: sticky</span> navbar di atas
+              </p>
+              <p
+                style="
+                  font-size: 12px;
+                  color: var(--muted);
+                  display: flex;
+                  align-items: center;
+                  gap: 6px;
+                "
+              >
+                <span class="css-label">position: fixed</span> tombol ↑ kanan
+                bawah
+              </p>
+            </div>
+          </div>
+
+          <!-- RIGHT: DETAIL PANELS -->
+          <div class="detail-panel">
+            <!-- Info Akun -->
+            <div class="panel-section">
+              <h3>Informasi Akun</h3>
+              <div class="info-row">
+                <span class="info-label">Nama Lengkap</span>
+                <span class="info-value">Arif Pratama</span>
+              </div>
+              <div class="info-row">
+                <span class="info-label">Email</span>
+                <span class="info-value">arif@pustakata.id</span>
+              </div>
+              <div class="info-row">
+                <span class="info-label">Bergabung Sejak</span>
+                <span class="info-value">Januari 2024</span>
+              </div>
+              <div class="info-row">
+                <span class="info-label">Status</span>
+                <span class="info-value" style="color: #16a34a">● Aktif</span>
+              </div>
+              <div class="info-row">
+                <span class="info-label">Genre Favorit</span>
+                <span class="info-value">Sastra, Fiksi Sejarah</span>
+              </div>
+            </div>
+
+            <!-- Buku Sedang Dibaca -->
+            <div class="panel-section">
+              <h3>Sedang Dibaca</h3>
+              <div class="book-list">
+                <div class="book-item">
+                  <div class="book-icon">📖</div>
+                  <div class="book-info">
+                    <div class="book-title">Laut Bercerita</div>
+                    <div class="book-author">Leila S. Chudori</div>
+                  </div>
+                  <span class="book-rating">⭐ 4.9</span>
+                </div>
+                <div class="book-item">
+                  <div class="book-icon">📘</div>
+                  <div class="book-info">
+                    <div class="book-title">Norwegian Wood</div>
+                    <div class="book-author">Haruki Murakami</div>
+                  </div>
+                  <span class="book-rating">⭐ 4.8</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- ★ BONUS: Penjelasan z-index -->
+            <div class="panel-section">
+              <h3>⭐ Bonus — z-index</h3>
+              <div class="zindex-callout">
+                <strong>Mengapa z-index penting di halaman ini?</strong>
+                Tanpa <code>z-index</code>, elemen bisa saling menimpa secara
+                acak. Di halaman ini terdapat 3 lapisan:<br /><br />
+                <code>z-index: 200</code> → Navbar (sticky) — selalu di atas
+                semua konten<br />
+                <code>z-index: 999</code> → Tombol Back to Top (fixed) — di atas
+                navbar sekalipun<br />
+                <code>z-index: 10</code> &nbsp;→ Badge "Online 🟢" (absolute) —
+                di atas elemen kartu<br />
+                <code>z-index: 5</code> &nbsp;&nbsp;→ Bookmark dekorasi — di
+                bawah badge<br />
+                <code>z-index: 1</code> &nbsp;&nbsp;→ Foto avatar — di atas
+                cincin animasi<br />
+                <code>z-index: 0</code> &nbsp;&nbsp;→ Cincin animasi — di
+                belakang foto
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+      <p>© 2026 Pustakata. All rights reserved.</p>
+    </footer>
+
+    <!-- ★ BACK TO TOP — position: fixed; z-index: 999 -->
+    <button
+      class="back-to-top"
+      id="backToTop"
+      onclick="window.scrollTo({ top: 0, behavior: 'smooth' })"
+    >
+      ↑
+    </button>
+
+    <script>
+      // Tampilkan tombol Back to Top saat scroll ke bawah
+      const btn = document.getElementById("backToTop");
+      window.addEventListener("scroll", () => {
+        if (window.scrollY > 200) {
+          btn.classList.add("visible");
+        } else {
+          btn.classList.remove("visible");
+        }
+      });
+    </script>
+  </body>
+</html>

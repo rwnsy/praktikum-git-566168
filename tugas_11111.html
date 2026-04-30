@@ -1,0 +1,385 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Profil Pustakata</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=DM+Sans:wght@300;400;500&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      :root {
+        --teal: #0e7c7b;
+        --teal-light: #e8f4f4;
+        --teal-dark: #095e5d;
+        --bg: #f5f5f5;
+        --white: #ffffff;
+        --text: #333;
+        --muted: #777;
+      }
+
+      body {
+        background: var(--bg);
+        color: var(--text);
+        font-family: "DM Sans", sans-serif;
+        min-height: 200vh;
+      }
+
+      .container {
+        width: 90%;
+        max-width: 1200px;
+        margin: auto;
+      }
+
+      .navbar {
+        position: sticky;
+        top: 0;
+        z-index: 200;
+        background: var(--white);
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+      }
+
+      .navbar .container {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 15px 0;
+      }
+
+      .logo {
+        font-family: "Playfair Display", serif;
+        font-size: 22px;
+        font-weight: 700;
+        color: var(--teal);
+        letter-spacing: 1px;
+      }
+
+      .menu {
+        display: flex;
+        gap: 30px;
+      }
+      .menu a {
+        text-decoration: none;
+        color: var(--text);
+        font-size: 14px;
+        transition: color 0.2s;
+      }
+      .menu a:hover {
+        color: var(--teal);
+      }
+      .nav-icons {
+        display: flex;
+        gap: 15px;
+        align-items: center;
+      }
+      .nav-icons input {
+        padding: 6px 10px;
+        border-radius: 4px;
+        border: 1px solid #ccc;
+        font-family: "DM Sans", sans-serif;
+        font-size: 13px;
+      }
+
+      .main {
+        padding: 60px 0 120px;
+        display: flex;
+        justify-content: center;
+      }
+
+      .profile-card {
+        position: relative;
+        width: 280px;
+        height: 350px;
+        background: var(--white);
+        border-radius: 20px;
+        box-shadow: 0 20px 50px rgba(14, 124, 123, 0.18);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 30px 20px 24px;
+        transition:
+          transform 0.3s,
+          box-shadow 0.3s;
+      }
+
+      .profile-card:hover {
+        transform: translateY(-6px);
+        box-shadow: 0 28px 60px rgba(14, 124, 123, 0.25);
+      }
+
+      .cards-wrapper {
+        display: flex;
+        gap: 30px;
+        justify-content: center;
+      }
+
+      .card-bookmark {
+        position: absolute;
+        top: -2px;
+        left: 28px;
+        z-index: 5;
+        width: 20px;
+        height: 34px;
+        background: var(--teal);
+        clip-path: polygon(0 0, 100% 0, 100% 80%, 50% 100%, 0 80%);
+      }
+
+      .badge-status {
+        position: absolute;
+        top: 16px;
+        right: 16px;
+        z-index: 10;
+        background: var(--white);
+        border: 1.5px solid #d4f0ef;
+        color: var(--teal-dark);
+        font-size: 11px;
+        font-weight: 500;
+        padding: 4px 10px;
+        border-radius: 20px;
+        box-shadow: 0 2px 8px rgba(14, 124, 123, 0.12);
+        white-space: nowrap;
+      }
+
+      .avatar-wrapper {
+        position: relative;
+        margin-bottom: 16px;
+      }
+
+      @keyframes spin {
+        to {
+          transform: rotate(360deg);
+        }
+      }
+
+      .avatar {
+        position: relative;
+        z-index: 1;
+        width: 90px;
+        height: 90px;
+        border-radius: 50%;
+        background: linear-gradient(135deg, var(--teal), #14b8a6);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 36px;
+        box-shadow: 0 6px 20px rgba(14, 124, 123, 0.3);
+      }
+
+      .profile-name {
+        font-family: "Playfair Display", serif;
+        font-size: 18px;
+        font-weight: 600;
+        color: var(--text);
+        margin-bottom: 4px;
+        text-align: center;
+      }
+
+      .profile-role {
+        font-size: 12px;
+        color: var(--teal);
+        font-weight: 500;
+        letter-spacing: 0.5px;
+        text-transform: uppercase;
+        margin-bottom: 16px;
+        text-align: center;
+      }
+
+      .profile-stats {
+        display: flex;
+        gap: 20px;
+        border-top: 1px solid #f0f0f0;
+        padding-top: 16px;
+        width: 100%;
+        justify-content: center;
+      }
+
+      .stat {
+        text-align: center;
+      }
+
+      .stat-number {
+        font-family: "Playfair Display", serif;
+        font-size: 18px;
+        font-weight: 700;
+        color: var(--teal);
+        display: block;
+      }
+
+      .stat-label {
+        font-size: 10px;
+        color: var(--muted);
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+      }
+
+      .back-to-top {
+        position: fixed;
+        bottom: 30px;
+        right: 30px;
+        z-index: 999;
+        width: 48px;
+        height: 48px;
+        background: var(--teal);
+        color: white;
+        border: none;
+        border-radius: 50%;
+        font-size: 20px;
+        cursor: pointer;
+        box-shadow: 0 6px 20px rgba(14, 124, 123, 0.4);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        opacity: 0;
+        pointer-events: none;
+        transition:
+          opacity 0.3s,
+          transform 0.2s;
+      }
+
+      .back-to-top.visible {
+        opacity: 1;
+        pointer-events: all;
+      }
+      .back-to-top:hover {
+        background: var(--teal-dark);
+        transform: translateY(-3px);
+      }
+
+      .footer {
+        text-align: center;
+        padding: 20px;
+        background: #eee;
+        font-size: 13px;
+        color: var(--muted);
+      }
+    </style>
+  </head>
+  <body>
+    <header class="navbar">
+      <div class="container">
+        <div class="logo">PUSTAKATA</div>
+        <nav class="menu">
+          <a href="#">Beranda</a>
+          <a href="#">Buku</a>
+          <a href="#">Komunitas</a>
+          <a href="#">Katalog</a>
+        </nav>
+        <div class="nav-icons">
+          <input type="text" placeholder="Cari buku..." />
+          <span>🔍</span>
+          <span>🛒</span>
+          <span>👤</span>
+        </div>
+      </div>
+    </header>
+
+    <main class="main">
+      <div class="cards-wrapper">
+        <!-- KARTU 1 -->
+        <div class="profile-card">
+          <div class="card-bookmark"></div>
+          <div class="badge-status">Online 🟢</div>
+          <div class="avatar-wrapper">
+            <div class="avatar-ring"></div>
+            <div class="avatar">📚</div>
+          </div>
+          <div class="profile-name">Ridho Ridwansyah</div>
+          <div class="profile-role">Book Enthusiast</div>
+          <div class="profile-stats">
+            <div class="stat">
+              <span class="stat-number">47</span>
+              <span class="stat-label">Dibaca</span>
+            </div>
+            <div class="stat">
+              <span class="stat-number">12</span>
+              <span class="stat-label">Ulasan</span>
+            </div>
+            <div class="stat">
+              <span class="stat-number">8</span>
+              <span class="stat-label">Diskusi</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- KARTU 2 -->
+        <div class="profile-card">
+          <div class="card-bookmark"></div>
+          <div class="badge-status">Away 🟡</div>
+          <div class="avatar-wrapper">
+            <div class="avatar-ring"></div>
+            <div class="avatar">🌙</div>
+          </div>
+          <div class="profile-name">Orell</div>
+          <div class="profile-role">Pendaki Kalcer</div>
+          <div class="profile-stats">
+            <div class="stat">
+              <span class="stat-number">31</span>
+              <span class="stat-label">Dibaca</span>
+            </div>
+            <div class="stat">
+              <span class="stat-number">9</span>
+              <span class="stat-label">Ulasan</span>
+            </div>
+            <div class="stat">
+              <span class="stat-number">14</span>
+              <span class="stat-label">Diskusi</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- KARTU 3 -->
+        <div class="profile-card">
+          <div class="card-bookmark"></div>
+          <div class="badge-status">Offline 🔴</div>
+          <div class="avatar-wrapper">
+            <div class="avatar-ring"></div>
+            <div class="avatar">✍️</div>
+          </div>
+          <div class="profile-name">Marpel</div>
+          <div class="profile-role">Drummer Hebat</div>
+          <div class="profile-stats">
+            <div class="stat">
+              <span class="stat-number">58</span>
+              <span class="stat-label">Dibaca</span>
+            </div>
+            <div class="stat">
+              <span class="stat-number">24</span>
+              <span class="stat-label">Ulasan</span>
+            </div>
+            <div class="stat">
+              <span class="stat-number">6</span>
+              <span class="stat-label">Diskusi</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <footer class="footer">
+      <p>© 2026 Pustakata. All rights reserved.</p>
+    </footer>
+
+    <button
+      class="back-to-top"
+      id="backToTop"
+      onclick="window.scrollTo({ top: 0, behavior: 'smooth' })"
+    >
+      ↑
+    </button>
+
+    <script>
+      const btn = document.getElementById("backToTop");
+      window.addEventListener("scroll", () => {
+        btn.classList.toggle("visible", window.scrollY > 200);
+      });
+    </script>
+  </body>
+</html>
