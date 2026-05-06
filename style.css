@@ -218,3 +218,31 @@ body {
   background: #eee;
   margin-top: 40px;
 }
+/* DARK MODE */
+.dark-mode {
+  background: #121212;
+  color: #e0e0e0;
+}
+
+/* navbar */
+.dark-mode .navbar {
+  background: #1e1e1e;
+}
+
+/* hero */
+.dark-mode .hero {
+  background: #1a1a1a;
+}
+
+/* card */
+.dark-mode .book-card,
+.dark-mode .discussion-item,
+.dark-mode .cta-box {
+  background: #2a2a2a;
+  color: #fff;
+}
+
+/* footer */
+.dark-mode .footer {
+  background: #000;
+}
