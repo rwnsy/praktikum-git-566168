@@ -1,16 +1,16 @@
-# Praktikum Git — [NIM]
+# Praktikum Git — [566168]
 
 Website sederhana yang dibuat sebagai tugas praktikum Git & GitHub.
 
 ## Cara Menjalankan
 
-1. Clone repo ini: `git clone https://github.com/username/praktikum-git-NIM`
-2. Buka folder: `cd praktikum-git-NIM`
+1. Clone repo ini: `git clone https://github.com/rwnsy/praktikum-git-566168`
+2. Buka folder: `cd praktikum-git-566168`
 3. Buka `index.html` di browser
 
 ## Screenshot
 
-![Website](website.png)
+![Website](gambar/website.png)
 
 ## Perintah Git yang Digunakan
 
