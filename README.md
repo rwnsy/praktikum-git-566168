@@ -31,40 +31,39 @@ discussion item, CTA, dan footer.
 
 ## 📋 Git Log
 
-````
 ![git log --oneline --graph](gambar/log.png)
----
 
 ## 🔧 Dokumentasi Perintah Git yang Digunakan
 
 ### ⚙️ Setup & Inisialisasi
 
-| Perintah | Penjelasan |
-|---|---|
-| `git init` | Menginisialisasi repository Git baru di folder lokal |
-| `git clone <url>` | Menyalin repository dari GitHub ke komputer lokal |
-| `git config --global user.name "..."` | Mengatur nama pengguna secara global untuk semua commit |
-| `git config --global user.email "..."` | Mengatur email pengguna secara global |
+| Perintah                               | Penjelasan                                              |
+| -------------------------------------- | ------------------------------------------------------- |
+| `git init`                             | Menginisialisasi repository Git baru di folder lokal    |
+| `git clone <url>`                      | Menyalin repository dari GitHub ke komputer lokal       |
+| `git config --global user.name "..."`  | Mengatur nama pengguna secara global untuk semua commit |
+| `git config --global user.email "..."` | Mengatur email pengguna secara global                   |
 
 ---
 
 ### 📸 Stage & Commit
 
-| Perintah | Penjelasan |
-|---|---|
-| `git status` | Melihat status file saat ini (untracked, modified, staged) |
-| `git add .` | Menambahkan semua perubahan ke staging area |
-| `git add <file>` | Menambahkan file tertentu ke staging area |
-| `git commit -m "pesan"` | Menyimpan snapshot perubahan dengan pesan deskriptif |
-| `git log --oneline --graph` | Melihat riwayat commit dalam tampilan ringkas dan visual |
+| Perintah                    | Penjelasan                                                 |
+| --------------------------- | ---------------------------------------------------------- |
+| `git status`                | Melihat status file saat ini (untracked, modified, staged) |
+| `git add .`                 | Menambahkan semua perubahan ke staging area                |
+| `git add <file>`            | Menambahkan file tertentu ke staging area                  |
+| `git commit -m "pesan"`     | Menyimpan snapshot perubahan dengan pesan deskriptif       |
+| `git log --oneline --graph` | Melihat riwayat commit dalam tampilan ringkas dan visual   |
 
 Contoh commit yang dibuat pada project ini mengikuti konvensi **Conventional Commits**:
+
 ```bash
 git commit -m "feat: add navbar navigation"
 git commit -m "fix: resolve merge conflict"
 git commit -m "chore: add gitignore"
 git commit -m "docs: add README with git log screenshot"
-````
+```
 
 ---
 
@@ -84,7 +83,8 @@ Branch yang dibuat pada project ini:
 - `feature/footer` — menambahkan footer dengan info kontak
 - `hotfix/typo` — memperbaiki typo pada halaman utama
 - `experiment/color-A` dan `experiment/color-B` — simulasi konflik merge
-  ![Log Branch](gambar/branch.png)
+
+![Log Branch](gambar/branch.png)
 
 ---
 
