@@ -217,3 +217,10 @@ body {
   background: #eee;
   margin-top: 40px;
 }
+.footer a {
+  text-decoration: none;
+}
+
+.footer a:hover {
+  text-decoration: underline;
+}
