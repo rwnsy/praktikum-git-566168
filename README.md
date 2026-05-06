@@ -144,13 +144,15 @@ Branch `main` dilindungi dengan aturan berikut:
 
 Berikut issues yang dibuat dan diselesaikan melalui Pull Request:
 
-| #   | Judul                               | Status              |
-| --- | ----------------------------------- | ------------------- |
-| #1  | Tambahkan navigasi navbar           | ✅ Closed via PR #1 |
-| #2  | Tambahkan footer dengan info kontak | ✅ Closed via PR #2 |
-| #3  | Perbaiki typo pada halaman CTA      | ✅ Closed via PR #3 |
+| #   | Judul                      | Status              |
+| --- | -------------------------- | ------------------- |
+| #1  | Add dark mode feature      | ✅ Closed via PR #4 |
+| #2  | Fix typo pada CTA          | ✅ Closed via PR #5 |
+| #3  | Improve footer information | ✅ Closed via PR #6 |
 
 ---
+
+![Issues](gambar/issues.png)
 
 ## 🏷️ Release
 
