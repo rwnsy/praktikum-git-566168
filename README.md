@@ -1,6 +1,8 @@
 # Praktikum Git — [566168]
 
-Website sederhana yang dibuat sebagai tugas praktikum Git & GitHub.
+Website komunitas buku yang dibangun sebagai tugas praktikum Git & GitHub.
+Proyek ini mencakup halaman utama dengan navbar, hero section, book card,
+discussion item, CTA, dan footer.
 
 ## Cara Menjalankan
 
